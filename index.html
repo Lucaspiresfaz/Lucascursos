@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucas | Cursos de Música</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --orange: #FF6B1A;
+    --orange-dim: #cc5514;
+    --black: #0a0a0a;
+    --surface: #141414;
+    --surface2: #1e1e1e;
+    --text: #f0ece4;
+    --muted: #888;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: var(–black);
+color: var(–text);
+font-family: ‘DM Sans’, sans-serif;
+min-height: 100vh;
+overflow-x: hidden;
+}
+
+/* Grain overlay */
+body::before {
+content: ‘’;
+position: fixed;
+inset: 0;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+pointer-events: none;
+z-index: 100;
+opacity: 0.4;
+}
+
+/* Glow accent */
+.glow-bg {
+position: fixed;
+top: -120px;
+left: 50%;
+transform: translateX(-50%);
+width: 600px;
+height: 400px;
+background: radial-gradient(ellipse, rgba(255,107,26,0.12) 0%, transparent 70%);
+pointer-events: none;
+z-index: 0;
+}
+
+.container {
+max-width: 480px;
+margin: 0 auto;
+padding: 48px 24px 80px;
+position: relative;
+z-index: 1;
+}
+
+/* Header */
+.header {
+text-align: center;
+margin-bottom: 48px;
+animation: fadeUp 0.6s ease both;
+}
+
+.avatar {
+width: 80px;
+height: 80px;
+border-radius: 50%;
+background: var(–surface2);
+border: 2px solid var(–orange);
+margin: 0 auto 16px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 32px;
+box-shadow: 0 0 24px rgba(255,107,26,0.3);
+}
+
+.name {
+font-family: ‘Playfair Display’, serif;
+font-size: 26px;
+font-weight: 900;
+letter-spacing: -0.5px;
+line-height: 1.1;
+}
+
+.name span {
+color: var(–orange);
+}
+
+.tagline {
+margin-top: 8px;
+font-size: 13px;
+color: var(–muted);
+font-weight: 300;
+letter-spacing: 0.5px;
+}
+
+.divider {
+width: 40px;
+height: 2px;
+background: var(–orange);
+margin: 16px auto 0;
+border-radius: 2px;
+}
+
+/* Section label */
+.section-label {
+font-size: 10px;
+letter-spacing: 3px;
+text-transform: uppercase;
+color: var(–orange);
+font-weight: 500;
+margin-bottom: 16px;
+animation: fadeUp 0.6s ease 0.1s both;
+}
+
+/* Cards */
+.card {
+background: var(–surface);
+border: 1px solid #2a2a2a;
+border-radius: 16px;
+padding: 24px;
+margin-bottom: 16px;
+display: block;
+text-decoration: none;
+color: var(–text);
+transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+position: relative;
+overflow: hidden;
+}
+
+.card::before {
+content: ‘’;
+position: absolute;
+inset: 0;
+background: linear-gradient(135deg, rgba(255,107,26,0.04) 0%, transparent 60%);
+pointer-events: none;
+}
+
+.card:hover {
+border-color: var(–orange);
+transform: translateY(-2px);
+box-shadow: 0 8px 32px rgba(255,107,26,0.15);
+}
+
+.card:nth-child(1) { animation: fadeUp 0.6s ease 0.15s both; }
+.card:nth-child(2) { animation: fadeUp 0.6s ease 0.25s both; }
+.card:nth-child(3) { animation: fadeUp 0.6s ease 0.35s both; }
+
+.card-top {
+display: flex;
+align-items: flex-start;
+justify-content: space-between;
+gap: 12px;
+margin-bottom: 12px;
+}
+
+.card-badge {
+font-size: 10px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–orange);
+font-weight: 500;
+margin-bottom: 6px;
+}
+
+.card-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 18px;
+font-weight: 700;
+line-height: 1.25;
+}
+
+.card-icon {
+font-size: 28px;
+flex-shrink: 0;
+opacity: 0.9;
+}
+
+.card-desc {
+font-size: 13px;
+color: var(–muted);
+line-height: 1.6;
+font-weight: 300;
+margin-bottom: 16px;
+}
+
+.card-footer {
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+
+.price {
+font-size: 22px;
+font-weight: 500;
+color: var(–text);
+}
+
+.price sup {
+font-size: 13px;
+vertical-align: super;
+color: var(–muted);
+}
+
+.btn {
+background: var(–orange);
+color: #fff;
+border: none;
+border-radius: 8px;
+padding: 10px 20px;
+font-size: 13px;
+font-weight: 500;
+font-family: ‘DM Sans’, sans-serif;
+cursor: pointer;
+letter-spacing: 0.3px;
+transition: background 0.2s;
+text-decoration: none;
+display: inline-block;
+}
+
+.btn:hover {
+background: var(–orange-dim);
+}
+
+/* Tags */
+.tags {
+display: flex;
+flex-wrap: wrap;
+gap: 6px;
+margin-bottom: 14px;
+}
+
+.tag {
+background: #222;
+border: 1px solid #333;
+border-radius: 4px;
+padding: 3px 8px;
+font-size: 11px;
+color: var(–muted);
+}
+
+/* Free section */
+.free-section {
+margin-top: 40px;
+animation: fadeUp 0.6s ease 0.45s both;
+}
+
+.free-card {
+background: linear-gradient(135deg, #1a1200 0%, #141414 100%);
+border: 1px solid #3a2800;
+border-radius: 16px;
+padding: 24px;
+display: flex;
+align-items: center;
+gap: 20px;
+text-decoration: none;
+color: var(–text);
+transition: border-color 0.2s, transform 0.2s;
+}
+
+.free-card:hover {
+border-color: var(–orange);
+transform: translateY(-2px);
+}
+
+.free-icon {
+font-size: 36px;
+flex-shrink: 0;
+}
+
+.free-label {
+font-size: 10px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: var(–orange);
+font-weight: 500;
+margin-bottom: 4px;
+}
+
+.free-title {
+font-family: ‘Playfair Display’, serif;
+font-size: 16px;
+font-weight: 700;
+margin-bottom: 4px;
+}
+
+.free-sub {
+font-size: 12px;
+color: var(–muted);
+font-weight: 300;
+}
+
+.free-arrow {
+margin-left: auto;
+color: var(–orange);
+font-size: 20px;
+flex-shrink: 0;
+}
+
+/* Footer */
+.footer {
+text-align: center;
+margin-top: 48px;
+font-size: 12px;
+color: #444;
+animation: fadeUp 0.6s ease 0.55s both;
+}
+
+/* Animations */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+</style>
+
+</head>
+<body>
+
+<div class="glow-bg"></div>
+
+<div class="container">
+
+  <!-- Header -->
+
+  <div class="header">
+    <div class="avatar">🎸</div>
+    <div class="name">Lucas<span> Música</span></div>
+    <div class="tagline">Professor de violão · guitarra · ukulele · teoria musical</div>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Cursos pagos -->
+
+  <div class="section-label">Mini Cursos</div>
+
+  <div class="cards">
+
+```
+<!-- Independência de Dedos -->
+<a href="LINK_HOTMART_INDEPENDENCIA" class="card">
+  <div class="card-top">
+    <div>
+      <div class="card-badge">Mais Completo</div>
+      <div class="card-title">Independência de Dedos</div>
+    </div>
+    <div class="card-icon">🖐️</div>
+  </div>
+  <div class="tags">
+    <span class="tag">6 aulas em vídeo</span>
+    <span class="tag">eBook</span>
+    <span class="tag">PDFs de exercícios</span>
+  </div>
+  <div class="card-desc">
+    Desenvolva coordenação, velocidade e controle independente de cada dedo. Metodologia progressiva com exercícios diários.
+  </div>
+  <div class="card-footer">
+    <div class="price"><sup>R$</sup>47</div>
+    <a href="LINK_HOTMART_INDEPENDENCIA" class="btn">Quero este →</a>
+  </div>
+</a>
+
+<!-- Acordes de Barra -->
+<a href="LINK_HOTMART_BARRA" class="card">
+  <div class="card-top">
+    <div>
+      <div class="card-badge">Técnica Essencial</div>
+      <div class="card-title">Acordes com pestana</div>
+    </div>
+    <div class="card-icon">🤘</div>
+  </div>
+  <div class="tags">
+    <span class="tag">eBook completo</span>
+    <span class="tag">Exercícios progressivos</span>
+  </div>
+  <div class="card-desc">
+    A maior barreira de quem aprende violão ou guitarra, resolvida de vez. Posicionamento, força e técnica correta.
+  </div>
+  <div class="card-footer">
+    <div class="price"><sup>R$</sup>37</div>
+    <a href="LINK_HOTMART_BARRA" class="btn">Quero este →</a>
+  </div>
+</a>
+
+<!-- Teoria Musical -->
+<a href=https://go.hotmart.com/R105626884N?dp=1 class="card">
+  <div class="card-top">
+    <div>
+      <div class="card-badge">Para Iniciantes</div>
+      <div class="card-title">Fundamentos de Teoria Musical</div>
+    </div>
+    <div class="card-icon">🎵</div>
+  </div>
+  <div class="tags">
+    <span class="tag">eBook</span>
+    <span class="tag">Notas · Escalas · Acordes</span>
+  </div>
+  <div class="card-desc">
+    Pare de tocar no escuro. Teoria prática, sem decoreba, para quem toca de ouvido e quer entender o que faz.
+  </div>
+  <div class="card-footer">
+    <div class="price"><sup>R$</sup>27</div>
+    <a href=https://go.hotmart.com/R105626884N?dp=1 class="btn">Quero este →</a>
+  </div>
+</a>
+```
+
+  </div>
+
+  <!-- eBook grátis -->
+
+  <div class="free-section">
+    <div class="section-label">Grátis para você</div>
+    <a href=https://lucaspirescursos.systeme.io/ebookgratis class="free-card">
+      <div class="free-icon">🎁</div>
+      <div>
+        <div class="free-label">Download gratuito</div>
+        <div class="free-title">Guia do Iniciante em Instrumentos de Corda</div>
+        <div class="free-sub">PDF · Exercícios práticos · Caminho claro para evoluir</div>
+      </div>
+      <div class="free-arrow">→</div>
+    </a>
+  </div>
+
+  <div class="footer">
+    © 2025 Lucas Música · Feito com 🎸 e dedicação
+  </div>
+
+</div>
+</body>
+</html>
